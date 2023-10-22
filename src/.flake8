@@ -1,0 +1,22 @@
+[flake8]
+#ignore = C101,D403,F403,F405,I100,I201,W503,W504
+ignore = C101,D403,I100,I201
+max-line-length = 90
+exclude=
+    **/settings.py
+    **/__pycache__
+    **/migrations
+
+filename = *.py
+accept-encodings = utf-8
+inline-quotes = single
+max-complexity = 10
+max-linenumber = 300
+multiline-quotes = double
+per-file-ignores =
+    **/settings/*.py: F405,F403,F401,E501
+    **/constants.py: W605
+    **/tests.py: F401
+    **/admin.py: F401
+    **/apps.py: F401
+    **/__init__.py: W292
