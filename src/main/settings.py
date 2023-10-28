@@ -37,6 +37,12 @@ API_VERSION = 'v1'
 ALLOWED_HOSTS = []
 
 
+AUTH_USER_MODEL='users.User'
+
+
+LOGIN_URL='/admin/login/'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,7 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'products'
+    'products',
+    'users',
+    'oauth2_provider',
 ]
 
 
@@ -148,3 +156,17 @@ CACHES = {
 
 
 DEFAULT_RECOMMENDATIONS_PRODUCT = 4
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
+
+# OAUTH2
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 3600 * 24 * 7  # one week,
+}
