@@ -2,14 +2,26 @@ from django.http.response import JsonResponse
 from django.core.cache import cache
 from django.conf import settings
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
 
 from utils.response import JsonResponseBadRequest
 from utils.cache.recommendations import get_cache_recommendation_key_of
 from .services import get_recommendation_service
 
 
+class NewView(APIView):
+
+    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
+
+    def get(self, request):
+        return JsonResponse({'message': 'Hello world!'})
+
+
 class RecommendedProductsView(APIView):
 
+    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
+    
     def get(self, request):
         product_id = request.GET.get('product_id', None)
         limit = request.GET.get('limit', settings.DEFAULT_RECOMMENDATIONS_PRODUCT)
